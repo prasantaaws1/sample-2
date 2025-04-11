@@ -1,3 +1,18 @@
+provider "aws" {
+  region     = "us-east-1"
+}
+
+
+terraform {
+  backend "s3" {
+    bucket          = "demo-20250508"
+    key               = "statefiles/terraform.tfstate"
+    region           = "us-east-1"
+    dynamodb_table = "mytab"
+    encrypt        = true
+  }
+}
+
 module "ecs_app" {
   source                       = "./modules/ecs"
   ec2_task_execution_role_name = "EcsTaskExecutionRoleName"
